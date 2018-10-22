@@ -2,15 +2,13 @@
 Phila.gov local development environment using Docker Containers
 
 ## Required
+- **An AWS account with the City Of Phildelphia**
 - Docker
 - Git
-- An AWS account with the City of Philadelphia (Or download the phila.gov database sql dump and save it into **_db-data/_**)
 
 ## How to use
 - Clone this repository
-- Run `cd phila.gov-docker-dev` and delete the **_.git_** folder (`rm -r .git`)
-- Run `docker-compose up`
-- Browse `https://localhost:8080`
-
-## Note
-If you have AWS Cli credentials, rename the `.env.sample` file to `.env` and replace the required environment variables
+- Go to _phila.gov-docker-dev_ (`cd phila.gov-docker-dev`) and delete the _.git_ folder (`rm -r .git`)
+- Rename the _.env.sample_ file to _.env_ (`mv .env.sample .env`) and set your AWS City of Phildelphia account credentials, and the developer database path.
+- Execute `docker-compose up`
+- When the docker compose installer finish, go to `https://localhost:8080` in your broswer.
