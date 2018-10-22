@@ -1,0 +1,34 @@
+.env*
+!.env.sample
+.vagrant
+
+# Private plugins
+wp/wp-content/plugins/meta-box-*
+wp/wp-content/plugins/mb-*
+wp/wp-content/plugins/wpfront-user-role-editor-personal-pro/
+
+# Ignore compiled files
+wp/wp-content/themes/phila.gov-theme/css/styles.css
+wp/wp-content/themes/phila.gov-theme/css/styles.css.map
+wp/wp-content/themes/phila.gov-theme/css/styles.min.css
+wp/wp-content/themes/phila.gov-theme/css/styles.min.css.map
+wp/wp-contnet/themes/phila.gov-theme/css/base.css
+wp/wp-contnet/themes/phila.gov-theme/js/app.js
+wp/wp-contnet/themes/phila.gov-theme/js/main.js
+wp/wp-content/themes/phila.gov-theme/js/phila-scripts.js
+wp/wp-content/themes/phila.gov-theme/js/phila-scripts.min.js
+wp/wp-content/themes/phila.gov-theme/js/phila-scripts.min.js.map
+db-data/*
+!db-data/.gitkeep
+dev/*
+!dev/.gitkeep
+ssl/certs/*
+!ssl/certs/.gitkeep
+ssl/private/*
+!ssl/private/.gitkeep
+
+# OSX file
+.DS_Store
+
+# Philagov project, this folder should be a git repo.
+phila.gov

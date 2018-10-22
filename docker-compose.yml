@@ -1,0 +1,51 @@
+version: '3.3'
+
+services:
+  wordpress:
+    depends_on:
+      - db
+    build: .
+    command: dev
+    ports:
+      - "8080:443"
+    volumes:
+      # Phila.gov git project
+      - ./phila.gov:/phila.gov
+      - ssl-cert-persistence:/etc/ssl
+
+      # This is necesary to download the database
+      - ./db-data:/db-data
+
+      # Useful while developing the docker environment
+      - ./scripts:/scripts
+      - ./nginx:/etc/nginx
+      - ./supervisor.conf:/etc/supervisor/conf.d/supervisor.conf
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wp
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: philagov
+      PHILA_PLUGINS_BUCKET: phila-wp-plugins
+      PHILA_MEDIA_BUCKET: phila-media-sync
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+
+      DOMAIN: localhost:8080
+
+      #DB CONFIG
+      PHILA_DB_BUCKET: $PHILA_DB_PATH
+      PHILA_DB_FILE: $PHILA_DB_FILE
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./db-data:/docker-entrypoint-initdb.d
+      - ./scripts/mysql-config.sh:/scripts/mysql-config.sh
+      - db-persistence:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: wp
+      MYSQL_ROOT_PASSWORD: philagov
+
+volumes:
+  db-persistence:
+  ssl-cert-persistence:
