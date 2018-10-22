@@ -4,11 +4,11 @@ Phila.gov local development environment using Docker Containers
 ## Required
 - Docker
 - Git
-- An AWS account with the City of Philadelphia (Or download the phila.gov database sql dump and save it into **_db-data/_**)
+- An AWS account with the City of Philadelphia (Or download the phila.gov database sql dump and save it into `db-data/`)
 
 ## How to use
 - Clone this repository
-- Run `cd phila.gov-docker-dev` and delete the **_.git_** folder (`rm -r .git`)
+- Run `cd phila.gov-docker-dev` and delete the `.git` folder (`rm -r .git`)
 - Run `docker-compose up`
 - Browse `https://localhost:8080`
 
