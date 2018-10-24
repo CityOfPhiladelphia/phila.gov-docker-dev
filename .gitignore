@@ -32,3 +32,4 @@ ssl/private/*
 
 # Philagov project, this folder should be a git repo.
 phila.gov
+test.sh
