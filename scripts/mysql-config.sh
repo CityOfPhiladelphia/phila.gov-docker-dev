@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! "$AWS_ACCESS_KEY_ID" ] || [ ! "$AWS_SECRET_ACCESS_KEY" ]; then
-  echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are required to get the database. Skipping." >&2
+  echo "Warning: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are required to get the database. Skipping." >&2
   return
 fi
 
@@ -27,10 +27,10 @@ if [ ! -f "/db-data/$PHILA_DB_FILE" ]; then
         sleep 2
         counter=`expr $counter + 1`
         if [ $counter -gt $maxcounter ]; then
-            >&2 echo "We have been waiting for MySQL too long already; failing."
+            >&2 echo "Warning: We have been waiting for MySQL too long already; failing."
             break
         fi;
-        echo "Let's try to connect to database again"
+        echo "Warning: Let's try to connect to database again"
     done
 
     if [ -f "/db-data/$PHILA_DB_FILE" ]; then
