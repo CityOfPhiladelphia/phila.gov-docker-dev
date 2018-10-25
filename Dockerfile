@@ -1,13 +1,5 @@
 FROM php:7.2-fpm
 
-RUN if [ -z "$AWS_ACCESS_KEY_ID" ] \
-  || [ -z "$AWS_SECRET_ACCESS_KEY" ] \
-  || [ -z "$AWS_DEFAULT_REGION" ] \
-  || [ -z "$PHILA_DB_PATH" ] \
-  || [ -z "$PHILA_DB_FILE" ]; then \
-  echo 'Environment variables must be specified. Exiting.'; exit 1; \
-fi
-
 # ENV WORDPRESS_VERSION 4.9.8
 # ENV WORDPRESS_SHA1 0945bab959cba127531dceb2c4fed81770812b4f
 ENV NGINX_VERSION 1.15.1-1~stretch
