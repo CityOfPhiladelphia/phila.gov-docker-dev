@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  wordpress:
+  philagov:
     depends_on:
       - db
     build: .
@@ -13,8 +13,9 @@ services:
       - ./phila.gov:/phila.gov
       - ssl-cert-persistence:/etc/ssl
 
-      # This is necesary to download the database
-      - ./db-data:/db-data
+      # This is used when downloading the database
+      - ./db:/db
+      # - ./scripts/mysql-config.sh:/scripts/mysql-config.sh
 
       # Useful while developing the docker environment
       - ./scripts:/scripts
@@ -39,8 +40,6 @@ services:
   db:
     image: mysql:5.7
     volumes:
-      - ./db-data:/docker-entrypoint-initdb.d
-      - ./scripts/mysql-config.sh:/scripts/mysql-config.sh
       - db-persistence:/var/lib/mysql
     environment:
       MYSQL_DATABASE: wp
