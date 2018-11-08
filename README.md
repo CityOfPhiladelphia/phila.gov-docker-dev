@@ -1,7 +1,7 @@
 # phila.gov-docker-dev
 Phila.gov local development environment using Docker Containers
 
-# IMPORTANT
+## Important!
 This new version WILL CREATE a new IMAGE, pleaser refer to `remove docker images` on Google to clean your images repository if you do not want to keep the old unused ones.
 
 
