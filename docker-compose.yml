@@ -34,7 +34,6 @@ services:
       AQI_KEY: $AQI_KEY
       SWIFTYPE_ENGINE: $SWIFTYPE_ENGINE
       GOOGLE_CALENDAR: $GOOGLE_CALENDAR
-      
       DOMAIN: localhost:8080
 
       #DB CONFIG
