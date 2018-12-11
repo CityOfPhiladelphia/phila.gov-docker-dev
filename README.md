@@ -25,7 +25,7 @@ openssl req -x509 -out localhost.crt -keyout localhost.key \
   -subj '/CN=localhost' -extensions EXT -config <( \
    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
    ```
-2 - Move the localhost.key and localhost.cnf to `/etc/nginx/certs` 
+2 - Move the localhost.key and localhost.cnf to the repo's location on your machine inside `/nginx/certs/` 
 
 3 - Trust your own certficate. 
   * On a Mac -  `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain localhost.crt` or manually through Keychain Access
