@@ -2,7 +2,7 @@ FROM php:7.2-fpm
 
 # ENV WORDPRESS_VERSION 4.9.8
 # ENV WORDPRESS_SHA1 0945bab959cba127531dceb2c4fed81770812b4f
-ENV NGINX_VERSION 1.15.1-1~stretch
+ENV NGINX_VERSION 1.15.7-1~stretch
 ENV NGINX_GPGKEY 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 ENV NODE_VERSION 8
 
@@ -40,9 +40,21 @@ RUN sed -i \
 
 # nginx
 RUN apt-get update \
-  && apt-get install -y gnupg apt-transport-https \
-  && echo "deb https://nginx.org/packages/mainline/debian/ stretch nginx" >> /etc/apt/sources.list.d/nginx.list \
-  && APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ${NGINX_GPGKEY} \
+  && apt-get install --no-install-recommends --no-install-suggests -q -y gnupg2 dirmngr wget apt-transport-https lsb-release ca-certificates \
+  && \
+  NGINX_GPGKEY=${NGINX_GPGKEY}; \
+  found=''; \
+  for server in \
+    ha.pool.sks-keyservers.net \
+    hkp://keyserver.ubuntu.com:80 \
+    hkp://p80.pool.sks-keyservers.net:80 \
+    pgp.mit.edu \
+  ; do \
+    echo "Fetching GPG key $NGINX_GPGKEY from $server"; \
+    apt-key adv --batch --keyserver "$server" --keyserver-options timeout=10 --recv-keys "$NGINX_GPGKEY" && found=yes && break; \
+  done; \
+  test -z "$found" && echo >&2 "error: failed to fetch GPG key $NGINX_GPGKEY" && exit 1; \
+  echo "deb http://nginx.org/packages/mainline/debian/ stretch nginx" >> /etc/apt/sources.list \
   && apt-get update \
   && apt-get install -y nginx=${NGINX_VERSION}
 
