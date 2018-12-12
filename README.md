@@ -16,4 +16,10 @@ This new version WILL CREATE a new IMAGE. Please refer to _remove docker images_
 - Rename the _.env.sample_ file to _.env_ (`mv .env.sample .env`) and set your AWS City of Phildelphia account credentials, and the developer database path.
 - You must execute `docker-compose run --service-ports philagov`, do not forget the `--service-ports` flag, this is mandatory for this service to work correctly. If you run `docker-copmose up` instead, please open a new shell and run `docker exec -it [name_of_your_philagov_container] /bin/bash` and then run `scripts/mysql-config.sh`; This will initiate the step by step service to download and install the database.
 - When the docker compose installer finishes, go to `https://localhost:8080` in your broswer.
-- If you want to develop locally with a valid SSL certificate, check the [https://github.com/CityOfPhiladelphia/phila.gov-docker-dev/tree/master/nginx/certs/](README) file in /nginx/certs.
+
+# SSL certificate
+If you want to develop locally with a valid SSL certificate, you'll need to trust the certficate that was created when you created the docker image.
+
+On a Mac, cd into /nginx/certs/ directory and run `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain localhost.crt`. 
+
+You can also trust the certificate manually through Keychain Access in settings.
