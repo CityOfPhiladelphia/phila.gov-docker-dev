@@ -1,13 +1,15 @@
 #!/bin/bash
 
 # If certs already exist, return
-if [ -f /etc/ssl/private/self-signed.key ]; then
+if [ -f /etc/nginx/certs/localhost.key ]; then
   echo "SSL certificate already exists. Skipping."
   return
 fi
 
 echo "Generating SSL certificate"
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-  -keyout /etc/ssl/private/self-signed.key \
-  -out /etc/ssl/certs/self-signed.crt \
-  -subj "/C=US/ST=Pennsylvania/L=Philadelphia/O=City of Philadelphia/OU=Office of Innovation and Technology/CN=$DOMAIN"
+pushd /etc/nginx/certs/
+openssl req -x509 -out localhost.crt -keyout localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+popd
