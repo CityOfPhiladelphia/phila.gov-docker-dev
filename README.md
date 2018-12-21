@@ -17,6 +17,14 @@ This new version WILL CREATE a new IMAGE. Please refer to _remove docker images_
 - You must execute `docker-compose run --service-ports philagov`, do not forget the `--service-ports` flag, this is mandatory for this service to work correctly. If you run `docker-copmose up` instead, please open a new shell and run `docker exec -it [name_of_your_philagov_container] /bin/bash` and then run `scripts/mysql-config.sh`; This will initiate the step by step service to download and install the database.
 - When the docker compose installer finishes, go to `https://localhost:8080` in your broswer.
 
+### How To Restart Server
+- Start the images
+  - ``docker start DB_IMAGE_NAME``
+  - ``docker start APP_IMAGE_NAME``
+- SSH into docker image
+  - docker exec -it APP_IMAGE_NAME /bin/bash
+- Start supervisor -> ``/usr/bin/supervisord``
+
 ### SSL certificate
 If you want to develop locally with a valid SSL certificate, you'll need to trust the certficate that was created when you created the docker image.
 
