@@ -15,7 +15,7 @@ This new version WILL CREATE a new IMAGE. Please refer to _remove docker images_
 - Go to _phila.gov-docker-dev_ (`cd phila.gov-docker-dev`) and delete the _.git_ folder (`rm -r .git`)
 - Rename the _.env.sample_ file to _.env_ (`mv .env.sample .env`) and set your AWS City of Phildelphia account credentials, and the developer database path.
 - You must execute the script *install.sh* `./install.sh`.
-- When the docker compose installer finishes, go to `https://localhost:*Web Port*` in your broswer.
+- When the docker compose installer finishes, go to `https://localhost:**Web Port**` in your broswer.
 
 ### How To Restart Server
 - Start the images
