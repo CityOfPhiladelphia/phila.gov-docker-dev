@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 
 services:
   philagov:
@@ -24,7 +24,7 @@ services:
       - ./supervisor.conf:/etc/supervisor/conf.d/supervisor.conf
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_NAME: wp-${INSTALATION_NAME}
+      WORDPRESS_DB_NAME: wp
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_PASSWORD: philagov
       PHILA_PLUGINS_BUCKET: phila-wp-plugins
@@ -44,14 +44,17 @@ services:
       PHILA_DB_FILE: $PHILA_DB_FILE
   db:
     image: mysql:5.7
+    container_name: db-${INSTALATION_NAME}
     ports:
-     - 3307:3306
+     - 3307-3407:3306
     volumes:
       - db-persistence:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: wp-${INSTALATION_NAME}
+      MYSQL_DATABASE: wp
       MYSQL_ROOT_PASSWORD: philagov
 
 volumes:
   db-persistence:
+    name: db-${INSTALATION_NAME}
   ssl-cert-persistence:
+    name: ssl-${INSTALATION_NAME}
