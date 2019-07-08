@@ -15,8 +15,8 @@ This new version WILL CREATE a new IMAGE. Please refer to _remove docker images_
 - Go to _phila.gov-docker-dev_ (`cd phila.gov-docker-dev`) and delete the _.git_ folder (`rm -r .git`)
 - Rename the _.env.sample_ file to _.env_ (`mv .env.sample .env`) and set your AWS City of Phildelphia account credentials, and the developer database path.
 - You must execute the script *install.sh* `./install.sh`.
-- When the docker compose installer finishes, go to `https://localhost:[automatic picked port]` in your broswer. The port will the printed in your console as *Web Port: #####*
-- If you do not know the port, you can open a new tab in your console an run `docker ps` and the port will be in your new container name.
+- When the docker compose installer finishes, go to `https://localhost:[port]` in your broswer. The **port** will the printed in your console as **Web Port: #####**
+-- If you forget web port, you can open a new tab in your console and run `docker ps`, port number will be part of the container name.
 
 ### How To Restart Server
 - Start the images
