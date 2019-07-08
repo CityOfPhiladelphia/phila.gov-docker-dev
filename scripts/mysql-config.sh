@@ -5,9 +5,10 @@ if [ ! "$AWS_ACCESS_KEY_ID" ] || [ ! "$AWS_SECRET_ACCESS_KEY" ]; then
   return
 fi
 
-if ! type "mysql" > /dev/null; then
-    apt-get update -y && apt-get install mysql-client -y
-fi
+# if ! type "mysql" > /dev/null; then
+#   echo "Lets install mysql";
+#   apt-get update -y && apt-get install mysql-client -y
+# fi
 
 read -p "WARNING: Hey, look at here! \
 Would you like to download the phila.gov database inside the db/ folder? [Y/n]" download
