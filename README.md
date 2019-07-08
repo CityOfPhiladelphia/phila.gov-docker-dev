@@ -16,7 +16,7 @@ This new version WILL CREATE a new IMAGE. Please refer to _remove docker images_
 - Rename the _.env.sample_ file to _.env_ (`mv .env.sample .env`) and set your AWS City of Phildelphia account credentials, and the developer database path.
 - You must execute the script *install.sh* `./install.sh`.
 - When the docker compose installer finishes, go to `https://localhost:[port]` in your broswer. The **port** will the printed in your console as **Web Port: #####**
--- If you forget web port, you can open a new tab in your console and run `docker ps`, port number will be part of the container name.
+-- If you forget web port, you can open a new tab in your console and run `docker ps`, port number will be part of the containe's name.
 
 ### How To Restart Server
 - Start the images
