@@ -4,7 +4,7 @@ FROM php:7.2-fpm
 # ENV WORDPRESS_SHA1 0945bab959cba127531dceb2c4fed81770812b4f
 ENV NGINX_VERSION 1.15.7-1~stretch
 ENV NGINX_GPGKEY 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
-ENV NODE_VERSION 8
+ENV NODE_VERSION 10
 
 ENV php_opcache /usr/local/etc/php/conf.d/opcache-recommended.ini
 ENV fpm_conf /usr/local/etc/php-fpm.d/www.conf
@@ -114,7 +114,7 @@ RUN apt-get update && apt-get install -y vim;
 
 # Lets download the phila.gov from git
 RUN apt-get install -y git
-RUN apt-get install mysql-client -y
+RUN apt-get install default-mysql-client -y
 
 WORKDIR /
 COPY ./scripts /scripts
