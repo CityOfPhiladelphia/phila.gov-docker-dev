@@ -5,7 +5,7 @@ if [ ! "$AWS_ACCESS_KEY_ID" ] || [ ! "$AWS_SECRET_ACCESS_KEY" ]; then
   return
 fi
 
-echo "Installing private plugins"
+printf $'\e[33mInstalling private plugins\e[0m\n'
 
 plugins="mb-admin-columns-1.4.2.zip
 mb-revision-1.3.2.zip

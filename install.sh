@@ -8,7 +8,8 @@ image_name="philagov"
 image_version="latest"
 
 if [[ "$(docker images -q $image_name:$image_version 2> /dev/null)" == "" ]]; then
-  echo "Please, create the image running this command first: 'docker build https://github.com/CityOfPhiladelphia/phila.gov-docker-dev.git -t $image_name:$image_version'"
+  printf $'\e[33mPlease, create the image running this command first:
+\e[32mdocker build . -t %s:%s\e[0m\n' $image_name $image_version
   exit 1
 fi
 
