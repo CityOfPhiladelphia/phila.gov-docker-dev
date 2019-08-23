@@ -20,11 +20,10 @@ This new version WILL CREATE a new IMAGE. Please refer to _remove docker images_
 
 ### How To Restart Server
 - Start the images
-  - ``docker start DB_IMAGE_NAME``
-  - ``docker start APP_IMAGE_NAME``
-- SSH into docker image
-  - docker exec -it APP_IMAGE_NAME /bin/bash
-- Start supervisor -> ``/usr/bin/supervisord``
+  - ``docker start [_Database Image Name_]``
+  - ``docker start -i [_Philagov Image Name_]``
+
+NOTE: if you use `-i` you will know when the container is already running an _ready to handle connection_, no need to run **supervisor** anymore, the `entrypoints.sh` runs it for you.
 
 ### SSL certificate
 If you want to develop locally with a valid SSL certificate, you'll need to trust the certficate that was created when you created the docker image.
