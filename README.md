@@ -23,8 +23,9 @@ This new version WILL CREATE a new IMAGE. Please refer to _remove docker images_
   - ``docker start [Database Image Name]``
   - ``docker start -i [Philagov Image Name]``
 
-NOTE: if you use `-i` you will now know when the container is running and _Ready to handle connection_, no need to run **supervisor** anymore, the `entrypoints.sh` runs it for you.
-d
+## NOTE:
+if you use `-i` you will now know when the container is running and _ready to handle connection_, no need to run **supervisor** anymore, the `entrypoints.sh` runs it for you.
+
 ### SSL certificate
 If you want to develop locally with a valid SSL certificate, you'll need to trust the certficate that was created when you created the docker image.
 
