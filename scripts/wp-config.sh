@@ -2,10 +2,15 @@
 CMD=$1
 [ $CMD == "dev" ] && DEBUG=true || DEBUG=false
 
+if [ -f /var/www/html/wp-config.php ]; then
+  printf $'\e[36mwp-config.php \e[33malready exists, skipping...\e[0m\n'
+  return
+fi
+
 echo "Writing wp-config.php"
 
-# Remove existing config if exists
-rm -f wp-config.php
+# # Remove existing config if exists
+# rm -f wp-config.php
 
 wp config create \
   --path=/var/www/html \

@@ -1,4 +1,27 @@
 #!/bin/bash
+
+maxcounter=5
+counter=1
+
+pushd /var/www/html/
+
+while ! wp db check --allow-root | grep -q "Success"; do
+    sleep 3
+    counter=`expr $counter + 1`
+    if [ $counter -gt $maxcounter ]; then
+        >&2 printf $'\e[33mWe have been waiting for MySQL service for too long, are you sure the MySQL container is up and running?\; \e[31mFailing...\e[0m\n'
+        return
+    fi;
+    printf $'\e[33mWARNING: Let\'s try to connect to database again try %s of %s  \e[0m\n' $counter $maxcounter
+done
+
+if wp db tables --allow-root | grep -q "wp_users"; then
+    >&2 printf $'\e[36mDatabase \e[33mis intalled and runing! Skipping...\e[0m\n'
+    return
+fi
+
+popd
+
 YELLOW='\033[1;33m' && NC='\033[0m'
 
 if [ ! "$AWS_ACCESS_KEY_ID" ] || [ ! "$AWS_SECRET_ACCESS_KEY" ]; then
@@ -6,10 +29,6 @@ if [ ! "$AWS_ACCESS_KEY_ID" ] || [ ! "$AWS_SECRET_ACCESS_KEY" ]; then
   return
 fi
 
-# if ! type "mysql" > /dev/null; then
-#   echo "Lets install mysql";
-#   apt-get update -y && apt-get install mysql-client -y
-# fi
 read -p $'\e[33mWARNING: Hey, look at here!
 Would you like to download the phila.gov database inside the db/ folder? [Y/n]\e[0m: ' download
 echo #Emtpy line, you know.
@@ -44,18 +63,6 @@ fi
 
 pushd /var/www/html/
 
-maxcounter=12
-counter=1
-while ! wp db check --allow-root | grep -q "Success"; do
-    sleep 2
-    counter=`expr $counter + 1`
-    if [ $counter -gt $maxcounter ]; then
-        >&2 printf $'\e[33mWe have been waiting for MySQL too long already\; failing.\e[0m\n'
-        break
-    fi;
-    printf $'\e[33mWARNING: Let\'s try to connect to database again$\e[0m\n'
-done
-
 if [ -f "/db/$PHILA_DB_FILE" ]; then
     read -p $'\e[33mWARNING: Now importing!
 Would you like to import the current.sql file into your database? [Y/n]\e[0m: ' import
@@ -67,5 +74,3 @@ Would you like to import the current.sql file into your database? [Y/n]\e[0m: ' 
 fi
 
 popd
-
-# /entrypoint.sh "$@"

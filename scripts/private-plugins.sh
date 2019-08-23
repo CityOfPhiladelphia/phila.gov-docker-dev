@@ -23,11 +23,17 @@ wpfront-user-role-editor-personal-pro-2.14.1.zip"
 pushd /var/www/html/wp-content/plugins
 
 for plugin in $plugins; do
-  echo "... $plugin"
-  s3_url="s3://$PHILA_PLUGINS_BUCKET/$plugin"
-  aws s3 cp "$s3_url" ./
-  unzip -o -q "$plugin"
-  rm "$plugin"
+  # If a plugin already exists, we do not need to install it.
+  printf $'... \e[36m%s\e[0m\n' $plugin
+  if ! grep -q "$plugin" ~/.plugins; then    
+    s3_url="s3://$PHILA_PLUGINS_BUCKET/$plugin"
+    aws s3 cp "$s3_url" ./
+    unzip -o -q "$plugin"
+    rm "$plugin"
+    echo "$plugin" >> ~/.plugins
+  else
+    printf $'\e[33mPlugin already exists, skipping...\e[0m\n'
+  fi
 done
 
 popd

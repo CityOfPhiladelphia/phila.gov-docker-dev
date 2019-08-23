@@ -2,7 +2,7 @@
 
 # If certs already exist, return
 if [ -f /etc/nginx/certs/localhost.key ]; then
-  echo "SSL certificate already exists. Skipping."
+  printf $'\e[36mSSL certificate \e[33malready exists. Skipping.\e[0m\n'
   return
 fi
 
