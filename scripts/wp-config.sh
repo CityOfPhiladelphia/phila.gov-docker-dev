@@ -1,6 +1,7 @@
 #!/bin/bash
 CMD=$1
-[ $CMD == "dev" ] && DEBUG=true || DEBUG=false
+# [ $CMD != "dev" ] && DEBUG=true || DEBUG=false
+DEBUG=true
 
 if [ -f /var/www/html/wp-config.php ]; then
   printf $'\e[36mwp-config.php \e[33malready exists, skipping...\e[0m\n'
