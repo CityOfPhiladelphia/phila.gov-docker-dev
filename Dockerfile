@@ -12,6 +12,10 @@ ENV fpm_conf_docker /usr/local/etc/php-fpm.d/zz-docker.conf
 
 ENV TZ=America/New_York
 
+RUN mkdir -p /phila.gov/wp/wp-content/themes/phila.gov-theme/node_modules
+
+ENV PATH /phila.gov/wp/wp-content/themes/phila.gov-theme/node_modules/.bin:$PATH
+
 # php extensions
 RUN \ 
   printf '\e[33mSetting up PHP (best programming language ever!)\e[0m\n' \
