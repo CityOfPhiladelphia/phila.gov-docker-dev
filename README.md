@@ -16,6 +16,10 @@ Phila.gov local development environment using Docker Containers
 6. When the docker compose installer finishes, go to `https://localhost:[port]` in your broswer. The **port** will the printed in your console as **Web Port: #####** The default port is 19107.
 -- If you forget the web port, you can open a new tab in your console and run `docker ps`.
 
+`
+Note: to develop against phila-standards, add the standards repo to the root of this project directory and name the standards folder phila-standards.
+`
+
 ### Restarting the docker server
 - Start the images
   - ``docker start [Database Image Name]``
