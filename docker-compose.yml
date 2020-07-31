@@ -21,6 +21,7 @@ services:
       # Useful while developing the docker environment
       - ./scripts:/scripts
       - ./nginx:/etc/nginx
+      - ./phila-standards:/phila.gov/wp/wp-content/themes/phila.gov-theme/node_modules/phila-standards
       - ./supervisor.conf:/etc/supervisor/conf.d/supervisor.conf
     environment:
       WORDPRESS_DB_HOST: db:3306
