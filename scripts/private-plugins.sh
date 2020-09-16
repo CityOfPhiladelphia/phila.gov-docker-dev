@@ -9,9 +9,9 @@ printf $'\e[33mInstalling private plugins\e[0m\n'
 
 plugins="mb-admin-columns-1.5.0.zip
 mb-revision-1.3.3.zip
-mb-settings-page-2.1.0.zip
+mb-settings-page-2.1.3.zip
 mb-term-meta-1.2.9.zip
-meta-box-columns-2.1.3.zip
+meta-box-columns-1.2.6.zip
 meta-box-conditional-logic-1.6.13.zip
 meta-box-group-1.3.11.zip
 meta-box-include-exclude-1.0.11.zip
