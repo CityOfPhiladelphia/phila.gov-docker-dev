@@ -7,18 +7,17 @@ fi
 
 printf $'\e[33mInstalling private plugins\e[0m\n'
 
-plugins="mb-admin-columns-1.4.2.zip
-mb-revision-1.3.2.zip
-mb-settings-page-1.3.4.zip
-mb-term-meta-1.2.5.zip
-meta-box-columns-1.2.5.zip
-meta-box-conditional-logic-1.6.4.zip
-meta-box-group-1.3.4.zip
-meta-box-include-exclude-1.0.10.zip
-meta-box-tabs-1.1.4.zip
-meta-box-tooltip-1.1.1.zip
-meta-box-updater-1.3.0.zip
-wpfront-user-role-editor-personal-pro-2.14.1.zip"
+plugins="mb-admin-columns-1.5.0.zip
+mb-revision-1.3.3.zip
+mb-settings-page-2.1.0.zip
+mb-term-meta-1.2.9.zip
+meta-box-columns-2.1.3.zip
+meta-box-conditional-logic-1.6.13.zip
+meta-box-group-1.3.11.zip
+meta-box-include-exclude-1.0.11.zip
+meta-box-tabs-1.1.8.zip
+meta-box-tooltip-1.1.3.zip
+wpfront-user-role-editor-personal-pro-2.14.5.zip"
 
 pushd /var/www/html/wp-content/plugins
 
