@@ -14,11 +14,19 @@ This will create a new Docker IMAGE. Please refer to _remove docker images_ on G
 
 ### Installing - Setting up local dev
 1. Clone this repository
-2. `cd phila.gov-docker-dev` and delete the _.git_ folder `rm -r .git` and the _.gitignore_ file `rm -r .gitignore`
-3. Rename the _.env.sample_ file to _.env_ and set your AWS City of Phildelphia account credentials. Get your access keys from the IAM settings in your AWS user profile. To set the other values, login to LastPass and look for `phila.gov enviornment file (env)`
-4. If this is the first time you are setting up phila.gov for local development, first run `docker build . -t philagov:latest` to create the latest version of the image.
-5. Execute the script *install.sh* `./install.sh`.
-6. When the docker compose installer finishes, go to `https://localhost:[port]` in your broswer. The **port** will the printed in your console as **Web Port: #####** The default port is 19107.
+2. `cd phila.gov-docker-dev` and delete the _.git_ folder and the _.gitignore_ file 
+```
+rm -r .git .gitignore
+```
+3. Rename the _.env.sample_ file to _.env_ and set your AWS City of Phildelphia account credentials. Get your access keys from the IAM settings in your AWS user profile. To set the other values, login to LastPass and look for `phila.gov environment file (env)`
+4. If this is the first time you are setting up phila.gov for local development, run `docker build . -t philagov:latest` to create the latest version of the image.
+5. Clone the latest version of the phila.gov repo into the root of the docker-dev project. 
+```
+git clone https://github.com/CityOfPhiladelphia/phila.gov.git
+```
+6. Follow the [instructions on phila.city](https://phila.city/display/appdev/Database+Dump+Instructions) to get a fresh copy of the database.
+7. Execute the script *install.sh* `./install.sh`.
+8. When the docker compose installer finishes, go to `https://localhost:[port]` in your broswer. The **port** will the printed in your console as **Web Port: #####** The default port is 19107.
 -- If you forget the web port, you can open a new tab in your console and run `docker ps`.
 
 `
