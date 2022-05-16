@@ -40,7 +40,7 @@ define('AWS_SECRET_ACCESS_KEY', '$AWS_SECRET_ACCESS_KEY');
 
 define( 'WPOS3_SETTINGS', serialize( array(
   'bucket' => '$PHILA_MEDIA_BUCKET',
-  'cloudfront' => '$DOMAIN'
+  'cloudfront' => 'phila.gov'
 ) ) );
 
 /** For Swiftype search */
@@ -48,9 +48,6 @@ define('SWIFTYPE_ENGINE', '$SWIFTYPE_ENGINE');
 
 /** For Google Calendar Archives */
 define('GOOGLE_CALENDAR', '$GOOGLE_CALENDAR');
-
-/** Don't let stuff sit around too long */
-define('EMPTY_TRASH_DAYS', 7);
 
 /** Disable WP cron, it runs on every page load! */
 define('DISABLE_WP_CRON', true);
