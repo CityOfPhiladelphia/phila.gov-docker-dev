@@ -4,11 +4,12 @@ FROM php:7.4-fpm
 # ENV WORDPRESS_SHA1 0945bab959cba127531dceb2c4fed81770812b4f
 # ENV NGINX_VERSION 1.15.7-1~stretch
 # ENV NGINX_GPGKEY 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
-ENV NODE_VERSION 10
+ENV NODE_VERSION=16.3.0
 
 ENV php_opcache /usr/local/etc/php/conf.d/opcache-recommended.ini
 ENV fpm_conf /usr/local/etc/php-fpm.d/www.conf
 ENV fpm_conf_docker /usr/local/etc/php-fpm.d/zz-docker.conf
+ENV PHP_MEMORY_LIMIT=128M
 
 ENV TZ=America/New_York
 
@@ -20,11 +21,49 @@ ENV PATH /phila.gov/wp/wp-content/themes/phila.gov-theme/node_modules/.bin:$PATH
 RUN \ 
   printf '\e[33mSetting up PHP (best programming language ever!)\e[0m\n' \
   && apt-get update \
-  && apt-get install -y --no-install-recommends \
-    libjpeg-dev \
-    libpng-dev \
-  && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-  && docker-php-ext-install gd mysqli opcache zip \
+	apt-get install -y --no-install-recommends \
+# Ghostscript is required for rendering PDF previews
+		ghostscript \
+	; \
+	rm -rf /var/lib/apt/lists/*
+
+# install the PHP extensions we need (https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions)
+RUN set -ex; \
+	\
+	savedAptMark="$(apt-mark showmanual)"; \
+	\
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		libfreetype6-dev \
+		libicu-dev \
+		libjpeg-dev \
+		libmagickwand-dev \
+		libpng-dev \
+		libwebp-dev \
+		libzip-dev \
+	; \
+	\
+	docker-php-ext-configure gd \
+		--with-freetype \
+		--with-jpeg \
+		--with-webp \
+	; \
+	docker-php-ext-install -j "$(nproc)" \
+		bcmath \
+		exif \
+		gd \
+		intl \
+		mysqli \
+		zip \
+	; \
+# https://pecl.php.net/package/imagick
+	pecl install imagick-3.6.0; \
+	docker-php-ext-enable imagick; \
+	rm -r /tmp/pear; 
+  
+  RUN \
+  printf '\e[33mSetting up PHP (best programming language ever!)\e[0m\n' \
+  && apt-get update \
   # php settings
   && { \
     echo 'opcache.memory_consumption=128'; \
@@ -48,6 +87,9 @@ RUN \
   && apt-get install --no-install-recommends --no-install-suggests -q -y gnupg2 dirmngr wget apt-transport-https lsb-release ca-certificates \
   && set -x \
   && apt-get install nginx -y \
+  # increase PHP memory limit
+  && cd /usr/local/etc/php/conf.d/ && \
+  echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-ram-limit.ini \
   # && \
   # NGINX_GPGKEY=${NGINX_GPGKEY}; \
   # found=''; \
@@ -84,20 +126,15 @@ RUN \
   && curl -sS https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar > /usr/local/bin/wp \
   && chmod 755 /usr/local/bin/wp \
   # node.js
-  && printf '\e[33mHere it comes NODEJS!\e[0m\n' \
-  && apt-get install -y gnupg build-essential \
-  && set -ex \
-  && curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
-  && apt-get install -y nodejs \
-  # aws-cli
-  && printf '\e[33mAWS CLI\e[0m\n' \
   && apt-get install -y \
-    python \
+    npm \
+    python3 \
     python-dev \
-    python-pip \
+    python3-pip \
     python-setuptools \
     groff \
     less \
+  # aws-cli
   && pip install awscli \
   # unzip (for private plugins)
   && printf '\e[33mCan you believe it\? we also need UNZIP\e[0m\n' \
@@ -123,6 +160,9 @@ WORKDIR /
 COPY ./scripts /scripts
 COPY ./nginx /etc/nginx
 COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+
+#ADD php.ini /usr/local/etc/php.ini
+
 
 ENTRYPOINT [ "/scripts/entrypoint.sh" ]
 CMD [ "start" ]
