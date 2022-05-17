@@ -44,6 +44,7 @@ services:
       PHILA_DB_BUCKET: $PHILA_DB_PATH
       PHILA_DB_FILE: $PHILA_DB_FILE
   db:
+    platform: linux/x86_64 #required to work on M1 mac
     image: mysql:5.7
     container_name: db-${INSTALATION_NAME}
     ports:
