@@ -18,7 +18,7 @@ This will create a new Docker IMAGE. Please refer to _remove docker images_ on G
 ```
 rm -r .git .gitignore
 ```
-3. Rename the _.env.sample_ file to _.env_ and set your AWS City of Phildelphia account credentials, by accessing the "Command line or programmatic access" modal for the AWS account you want to launch to. 
+3. Rename the _.env.sample_ file to _.env_ and set your AWS City of Phildelphia account credentials, by accessing the "Command line or programmatic access" modal for the AWS account you want to launch to. Replace the values with your session tokens.
 To set the other values, login to LastPass and look for `phila.gov environment file (env)`
 4. If this is the first time you are setting up phila.gov for local development, run `docker build . -t philagov:latest` to create the latest version of the image.
 5. Clone the latest version of the phila.gov repo into the root of the docker-dev project. 
