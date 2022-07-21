@@ -26,15 +26,24 @@ To set the other values, login to LastPass and look for `phila.gov environment f
 git clone https://github.com/CityOfPhiladelphia/phila.gov.git
 git clone https://github.com/CityOfPhiladelphia/standards.git phila-standards
 ```
-6. Follow the [instructions on phila.city](https://phila.city/display/appdev/Database+Dump+Instructions) to get a fresh copy of the database.
-7. Execute the script *install.sh* `./install.sh`.
-8. When the docker compose installer finishes, go to `https://localhost:[port]` in your broswer. The **port** will the printed in your console as **Web Port: #####** The default port is 19107.
+6. cd into the newly created phila-standards directory install npm.
+```
+cd phila-standards
+npm i 
+npm run build
+```
+8. cd into the phila.gov theme and add an .npmrc file with FontAwesome credentials (found in lastpass).
+```
+cd phila.gov/wp/wp-content/themes/phila.gov-theme
+```
+8. Follow the [instructions on phila.city](https://phila.city/display/appdev/Database+Dump+Instructions) to get a fresh copy of the database.
+9. Execute the script *install.sh* `./install.sh`.
+10. When the docker compose installer finishes, go to `https://localhost:[port]` in your broswer. The **port** will the printed in your console as **Web Port: #####** The default port is 19107.
 -- If you forget the web port, you can open a new tab in your console and run `docker ps`.
 
 `
 Note: to develop against phila-standards, add the standards repo to the root of this project directory and name the standards folder phila-standards.
 `
-
 ### Restarting the docker server
 - Start the images
   - ``docker start [Database Image Name]``
@@ -61,7 +70,6 @@ Note: to develop against phila-standards, add the standards repo to the root of 
     - SWIFTYPE_ENGINE
     - AQI_KEY
     - JWT_AUTH_SECRET_KEY
-    - FONTAWESOME_NPM_AUTH_TOKEN
 3. Start the images
   - ``docker start [Database Image Name]``
   - ``docker start -i [Philagov Image Name]``
@@ -70,6 +78,8 @@ Note: to develop against phila-standards, add the standards repo to the root of 
   - ``docker update --restart=always [Database Image CONTAINER ID]``
   - ``docker update --restart=always [Philagov Image CONTAINER ID]``
 
+## Troubleshooting
+- If you get a node-sass failure, try reinstalling node-sass in the Docker container globally. 
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
